@@ -17,5 +17,10 @@ class Langevin1DConfig:
     area:float = 0.3,
     epsilon:float = 0.00
     omg:float = omegaconf.MISSING 
-    A:float =  omegaconf.MISSING
+    amp:float =  omegaconf.MISSING
     relx_t:int = 100
+
+class Langevin1DRun:
+    omg_list:List[float] = omegaconf.MISSING
+    amp_list:List[float] = omegaconf.MISSING
+    langevin:Langevin1DConfig = Langevin1DConfig()
