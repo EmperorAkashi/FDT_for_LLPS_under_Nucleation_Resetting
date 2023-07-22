@@ -7,7 +7,9 @@ import langevin1d as L
 def main(config: cf.Langevin1DRun):
     omg_list = config.omg_list
     amp_list = config.amp_list
-
+    # we keep the net for loop call of the main langevin function
+    # as we want to keep the yaml file with all frequencies&amplitute 
+    # used in one simulation
     for o in omg_list:
         for a in amp_list:
             curr_config = config.langevin
