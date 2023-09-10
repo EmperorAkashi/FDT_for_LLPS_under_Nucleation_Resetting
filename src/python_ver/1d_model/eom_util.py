@@ -1,6 +1,28 @@
 import numpy as np
 import config as cf
 from typing import List
+from abc import ABC, abstractmethod
+from enum import Enum
+
+
+class NucleationOption(Enum):
+    poisson, berne_fpt = 1, 2
+
+class NucleationTime(ABC):
+    @abstractmethod
+    def get_distri(step:int) -> int:
+        pass 
+
+class PoissonTime(NucleationTime):
+    def get_distri(tau_step:int) -> int:
+        """random nucleation time after droplet evaporate
+        """
+        return -tau_step*np.log(np.random.uniform(0,1))
+    
+class BerneFPT_Quad(NucleationTime):
+    def get_distri(step: int) -> int:
+        pass
+
 
 def trans_r(dt:float, r:float, k:float, gamma:float, R:float, 
             step:int, A:float, omg:float) -> float:
@@ -38,7 +60,4 @@ def ac_force(t:float, omega:float) -> float:
     """
     return np.sin(omega*t)
 
-def possion_lag(tau_step:int) -> int:
-    """random nucleation time after droplet evaporate
-    """
-    return -tau_step*np.log(np.random.uniform(0,1))
+
