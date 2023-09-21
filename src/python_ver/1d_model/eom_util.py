@@ -3,6 +3,7 @@ import config as cf
 from typing import List
 from abc import ABC, abstractmethod
 from enum import Enum
+from inverse_cdf import sample_from_Berne_FPT
 
 
 class NucleationOption(Enum):
@@ -17,11 +18,11 @@ class PoissonTime(NucleationTime):
     def get_distri(tau_step:int) -> int:
         """random nucleation time after droplet evaporate
         """
-        return -tau_step*np.log(np.random.uniform(0,1))
+        return int(-tau_step*np.log(np.random.uniform(0,1)))
     
 class BerneFPT_Quad(NucleationTime):
-    def get_distri(step: int) -> int:
-        pass
+    def get_distri(D:float, k:float, x_0:float) -> int:
+        return int(sample_from_Berne_FPT())
 
 
 def trans_r(dt:float, r:float, k:float, gamma:float, R:float, 
@@ -32,7 +33,7 @@ def trans_r(dt:float, r:float, k:float, gamma:float, R:float,
     """
     ext_F  = -k*4*np.pi*R**2*r
     stoc_F = np.random.randn()/np.sqrt(dt) *np.sqrt(2*gamma)
-    vels = ext_F + 1*stoc_F + A*AC_force(step*dt,omg)
+    vels = ext_F + 1*stoc_F + A*ac_force(step*dt,omg)
     r += vels*dt/gamma
     return r
 

@@ -20,7 +20,15 @@ class Langevin1DConfig:
     amp:float =  omegaconf.MISSING
     relx_t:int = 100
 
+@dataclasses.dataclass
+class NucleationConfig:
+    tau:int = 100
+    D:float = 0.83
+    k:float = -0.17
+    x_0:float = 2.61
+
 class Langevin1DRun:
     omg_list:List[float] = omegaconf.MISSING
     amp_list:List[float] = omegaconf.MISSING
     langevin:Langevin1DConfig = Langevin1DConfig()
+    nucleation:NucleationConfig = NucleationConfig()
