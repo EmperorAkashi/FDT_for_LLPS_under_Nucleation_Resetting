@@ -3,7 +3,7 @@ import config as cf
 from typing import List
 from abc import ABC, abstractmethod
 from enum import Enum
-from inverse_cdf import sample_from_Berne_FPT
+import inverse_cdf as CDF
 
 
 class NucleationOption(Enum):
@@ -22,7 +22,7 @@ class PoissonTime(NucleationTime):
     
 class BerneFPT_Quad(NucleationTime):
     def get_distri(D:float, k:float, x_0:float) -> int:
-        return int(sample_from_Berne_FPT())
+        return int(CDF.sample_from_Berne_FPT())
 
 
 def trans_r(dt:float, r:float, k:float, gamma:float, R:float, 
