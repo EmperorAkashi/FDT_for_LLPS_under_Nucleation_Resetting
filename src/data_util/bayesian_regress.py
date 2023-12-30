@@ -6,18 +6,8 @@ import pymc as pm
 import dataclasses
 
 from typing import List, Dict
+import data_util.config as CFG
 
-@dataclasses.dataclass
-"""dataclass to specify the configure to run MCMC
-"""
-class FileConfigMCMC:
-    alpha:float = 9.2
-    curr_omg:float = 0.1
-    amp:List[float] = [0.5,0.8,1.0,1.5]
-    dir_prefix:str = "1D_9.2_relx200_Rn" #directory's name
-    dt:float = 0.01
-    fit_range:int = 3
-    prefix_1d:str = "C:/Users/linch/Downloads/Diffusion_Elastic/Elastic_Hexagon/2022_1D-Restart/"
 
 @dataclasses.dataclass
 class PyMCConfig:
@@ -25,7 +15,12 @@ class PyMCConfig:
     mu_beta:float = -0.0168
     samples:int = 1000
 
-def load_response_list(cfg:FileConfigMCMC) -> List[List[float]]:
+def load_response_list(cfg:CFG.FittingFileConfig) -> List[List[float]]:
+    """load list of out phase measurements with different amplitude
+    i.e. each amplitude should have 1k observations
+    return: estimated slope for a single omega (driving frequency) and its variance
+    """
+
     response_2d_list = []
 
     for a in cfg.amp:
@@ -39,8 +34,9 @@ def load_response_list(cfg:FileConfigMCMC) -> List[List[float]]:
 
     return transposed_list
 
-def run_pymc(transposed_list:List[List[float]], file_cfg:FileConfigMCMC,
+def run_pymc(transposed_list:List[List[float]], file_cfg:CFG.FittingFileConfig,
             run_cfg:PyMCConfig) -> Dict[str, float]:
+    "return: estimated slope for a single omega (driving frequency) and its variance"
     basic_model = pm.Model()
     a = file_cfg.amp
 
@@ -61,7 +57,7 @@ def run_pymc(transposed_list:List[List[float]], file_cfg:FileConfigMCMC,
     return map_estimate
 
 if __name__ == '__main__':
-    file = FileConfigMCMC()
+    file = CFG.FittingFileConfig()
     run = PyMCConfig()
     res = load_response_list(file)
     estimate = run_pymc(res, file, run)
