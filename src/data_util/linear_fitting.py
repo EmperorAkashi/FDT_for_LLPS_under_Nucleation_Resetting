@@ -35,8 +35,9 @@ def load_response_single_freq(cfg:CFG.FittingFileConfig) -> List[List[float]]:
 
 def flat_to_one_d(cfg:CFG.FittingFileConfig, 
                   responses:List[List[float]]) -> Tuple[List[float],List[float]]:
-    """flats the 2D list response/observations to 1D as y
+    """flats the 2D list response/observations to 1D as y,
     manually generate 1D amplitutes to match the size of responses as x
+    i.e. repeat each x 1k times as each x has 1k observations y
     """
     n = len(responses[0])
     x = [a for a in cfg.amp for _ in range(n)]
@@ -46,6 +47,10 @@ def flat_to_one_d(cfg:CFG.FittingFileConfig,
 
 def get_rss_std(fitted:List[float], responses:List[List[float]], 
             cfg:CFG.FittingFileConfig) -> float:
+    """get residual sum of squares (rss) and standard deviation
+    @arg slope, intercept are fitted value from a single linear fitting
+    (can be a fitting by using averaged response or not)
+    """
     slope, intercept = fitted
 
     amp_fit = cfg.amp[:cfg.fit_range]
@@ -62,7 +67,8 @@ def get_rss_std(fitted:List[float], responses:List[List[float]],
     return np.sqrt(var)
 
 def run_seq_fitting(seq_cfg:CFG.SeqFittingConfig) -> Tuple[List[float], List[float]]:
-    """return: mean and std list for different omega (the frequencies)
+    """get rss and std for all omega
+    return: mean and std list for different omega (the frequencies)
     """
     m, n = seq_cfg.fit_range, seq_cfg.sample
     std_list = []
