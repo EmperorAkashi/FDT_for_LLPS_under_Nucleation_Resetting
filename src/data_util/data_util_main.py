@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pylab as plt
 from scipy.optimize import leastsq
 
-from typing import List
+from typing import List, Tuple
 
 "Can be used to read a 1d list, such as r^2, potential energy et.al."
 def read_list(file:str) -> List[float]:
@@ -69,10 +69,12 @@ def read_drop_file(filename:str) -> List[List[str]]:
         top.append(x_drop)   
     return top
 
-def death_t(trj:List[List[float]]) -> List[float]:
+def death_timestamp(trj:List[float]) -> List[float]:
     """
-    trj: list of time series of radius or 1d displacemnt
-    i.e. overall a 2D list
+    @brief: record all death events' timestamps
+    @args:
+    trj: a single list of time series of radius or 1d displacemnt
+    i.e. a 1D list
     """
     hit = []
     iter_ = 0
@@ -85,7 +87,7 @@ def death_t(trj:List[List[float]]) -> List[float]:
         iter_ += 1
     return hit
 
-def life_t(hit_list:List[float]) -> List[float]:
+def life_period(hit_list:List[float]) -> List[float]:
     """
     hit_list: list of passage time spot processed by death_t
     """
@@ -94,3 +96,26 @@ def life_t(hit_list:List[float]) -> List[float]:
     for i in range(0,len(hit_list)-1,2):
         fpt.append(hit_list[i+1]-hit_list[i])
     return fpt
+
+def get_all_life_t(trj_2d:List[List[float]]) -> List[float]:
+    """@return: and ensemble of life time of a list of trajectories 
+    """
+    life_ensemble = []
+    for t in trj_2d:
+        curr = death_timestamp(t)
+        life = life_period(curr)
+        life_ensemble += life
+
+    return life_ensemble
+
+def get_fpt_hist(life_ensemble:List[float],
+                bin_num:int, range_min:int, range_max:int) -> Tuple[List[float],List[float]]:
+    """@return: discrete x-axis from mid of bins; normalized pdf
+    """
+    n, bins, patch = plt.hist(life_ensemble, bins = bin_num, range = [range_min, range_max])
+    #here 200 is picking mid of each bin and 100 is the predefined timestep size 
+    bin_mid = [(bins[i] + bins[i+1])/200 for i in range(len(bins) - 1)]
+    total_count = np.sum(n)
+    pdf = n / total_count
+
+    return bin_mid, pdf
