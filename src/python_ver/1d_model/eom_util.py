@@ -25,35 +25,35 @@ class BerneFPT_Quad(NucleationTime):
         return int(CDF.sample_from_Berne_FPT())
 
 
-def trans_r(dt:float, r:float, k:float, gamma:float, R:float, 
-            step:int, A:float, omg:float) -> float:
+def trans_r(dt:float, r:float, alpha:float, c:float, c_inf_v:float, 
+            R:float, step:int, A:float, omg:float) -> float:
     """effective 1D translation of the droplet
-    where the effective spring constant k_sp = k*4*pi*R_bar^2
-    is the proxy of 2D lattice field
+    here we use dimensonless units based on the molecular length
     """
-    ext_F  = -k*4*np.pi*R**2*r
-    stoc_F = np.random.randn()/np.sqrt(dt) *np.sqrt(2*gamma)
-    vels = ext_F + 1*stoc_F + A*ac_force(step*dt,omg)
-    r += vels*dt/gamma
+    ext_F  = -(1/c_inf_v)*(4/3)*np.pi*alpha*2*c*R**3*r
+    stoc_F = np.random.randn()/np.sqrt(dt)*np.sqrt(2)
+    vels = ext_F + stoc_F + A*ac_force(step*dt, omg)
+    r += vels*dt
     return r
 
-def u_int(k:float, R:float, r:float) -> float:
+def u_int(c:float, R:float, r:float) -> float:
     """effective potential energy of the droplet
     """    
-    U = 0.5*np.pi*(4*k*r**2*R**2 + 0.5*k*R**4)
-    return U
+    u = R**2 + c*r**2
+    return u
 
-def growth_rate(R0:float, R1:float, R:float, Uin:float, 
-                alpha:float, area:float, epsilon:float) -> float:
+def growth_rate(c_eq:float, c_inf:float, R:float, u_in:float, 
+                alpha:float) -> float:
     """effective growth rate of the droplet
     args:
-    R0: constant chemical potential of infinity reservior
-    R1: constant chemical potential of the minority phase
+    c_inf: constant chemical potential of infinity reservior
+    c_eq: constant chemical potential of the minority phase
     alpha: constant dewetting parameter
-    area: area of the droplet
-    epsilon: constant of surface tension
+    notice:
+    here we do not have a surface tension, the effect of surface tension
+    will be modeled as a hitting boundaray
     """
-    rate = (1/R)*(R0 - R1*np.exp(alpha*Uin/R**2 + (epsilon*area)/R) + 0*2*np.sqrt(area)*R1*R*np.random.randn())
+    rate = (1/R)*(1 - (c_eq/c_inf)*np.exp(alpha*u_in)) + (1/2*np.pi*R**3)*(c_eq/c_inf)*np.random.randn()
     return rate
 
 def ac_force(t:float, omega:float) -> float:
