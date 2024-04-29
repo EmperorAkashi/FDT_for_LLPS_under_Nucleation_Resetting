@@ -5,5 +5,3 @@ Key aspects include the study of droplet behaviors under thermal fluctuations, t
 We offer both C++ and Python source codes for the productive run of Langevin dynamics, addressing our complex system. 
 The repository also features Python scripts for data analysis, including visualization of autocorrelation functions in frequency domains, and the application of MCMC Bayesian regression to understand droplet dynamics in an effective potential context. 
 The project aims to bridge theoretical concepts with computational modeling to deepen the understanding of LLPS in biological and physical systems.
-
-// remote set
