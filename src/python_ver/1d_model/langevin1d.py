@@ -8,6 +8,13 @@ def langevin_1d(config:cf.Langevin1DConfig) -> None:
     step = 0
     R_curr = config.R_init # init R_ as R
     nucleation = E.PoissonTime(config.tau)
+    disp_path = config.base_path + \
+    'Disk_r-1D-ap' + str(config.alpha)+'-r0Re-Nu' + str(config.tau) + '-' + str(config.amp)+'o'+str(config.omg)+'_ceq'+str(config.c_eq)+'_thre'+str(config.R_thre)+'.txt'
+    radi_path = config.base_path + \
+    'Radius-1D-ap' + str(config.alpha)+'-r0Re-Nu' + str(config.tau) + '-' + str(config.amp)+'o'+str(config.omg)+'_ceq'+str(config.c_eq)+'_thre'+str(config.R_thre)+'.txt'
+
+    file_disp = open(disp_path, 'w+')
+    file_radi = open(radi_path, 'w+')
 
     while step < config.Nsteps and R_curr > config.R_thre:
         step += 1
@@ -29,5 +36,14 @@ def langevin_1d(config:cf.Langevin1DConfig) -> None:
             t_relx = int(nucleation.get_distri())
 
             t_cutoff = min(config.Nsteps - step, t_relx)
+
+            for _ in range(t_cutoff):
+                file_disp.write(str(0) + "\n")
+                file_radi.write(str(0) + "\n")
+
+            step += t_cutoff
+
+        file_disp.write(str(r) + "\n")
+        file_radi.write(str(R_curr) + "\n")
 
             
