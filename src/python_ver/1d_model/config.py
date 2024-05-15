@@ -5,24 +5,24 @@ import omegaconf
 @dataclasses.dataclass
 class Langevin1DConfig:
     Nsteps:int = 50000    
-    dt:float = 0.01                              
-    U0:float = 3.0                         
-    Sigma:float = 3.0
-    gamma:float = 1.5
-    k:float = 0.017          #spring for the naived harmonic potential
-    R:float = 1.0
-    R1:float = 0.08
-    R0:float = 0.8
-    alpha:float = 5.0
-    area:float = 0.3,
-    epsilon:float = 0.00
+    dt:float = 0.1                              
+    gamma:float = 10.0
+    R_init:float = 1.0
+    R_thre:float = 0.2
+    c_inf_v:float = 0.1
+    c:float = 1.0
+    c_eq:float = 0.7
+    c_inf:float = 1.0
+    alpha:float = 0.2
+    gamma_bar:float = 0.1
     omg:float = omegaconf.MISSING 
     amp:float =  omegaconf.MISSING
-    relx_t:int = 100
+    base_path:str = omegaconf.MISSING
+    tau:int = 10
 
 @dataclasses.dataclass
 class NucleationConfig:
-    tau:int = 100
+    tau:int = 10
     D:float = 0.83
     k:float = -0.17
     x_0:float = 2.61
