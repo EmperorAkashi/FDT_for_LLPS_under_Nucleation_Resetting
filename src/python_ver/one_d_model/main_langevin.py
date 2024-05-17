@@ -30,5 +30,5 @@ def main(config: cf.Langevin1DRunConfig):
 if __name__ == '__main__':
     from hydra.core.config_store import ConfigStore
     cs = ConfigStore()
-    cs.store('langevin_1d', node=cf.Langevin1DRun)
+    cs.store('langevin_1d', node=cf.Langevin1DRunConfig)
     main()
