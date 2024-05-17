@@ -17,7 +17,8 @@ class Langevin1DConfig:
     gamma_bar:float = 0.1
     omg:float = omegaconf.MISSING 
     amp:float =  omegaconf.MISSING
-    base_path:str = omegaconf.MISSING
+    disp_path:str = omegaconf.MISSING
+    radi_path:str = omegaconf.MISSING
     tau:int = 10
     
 
@@ -31,5 +32,7 @@ class NucleationConfig:
 class Langevin1DRunConfig:
     omg_list:List[float] = omegaconf.MISSING
     amp_list:List[float] = omegaconf.MISSING
+    base_path:str = omegaconf.MISSING
     langevin:Langevin1DConfig = Langevin1DConfig()
     nucleation:NucleationConfig = NucleationConfig()
+    num_repeat:int = 1000
