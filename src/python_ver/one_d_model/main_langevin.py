@@ -16,6 +16,8 @@ def main(config: cf.Langevin1DRunConfig):
             curr_config.amp = a
             curr_config.omg = o
 
+            print("check the base path: ", config.base_path)
+
             disp_path = config.base_path + \
             'Disk_r-1D-ap' + str(curr_config.alpha)+'-r0Re-Nu' + str(curr_config.tau) + '-' + str(curr_config.amp)+'o'+str(curr_config.omg)+'_ceq'+str(curr_config.c_eq)+'_thre'+str(curr_config.R_thre)+'.txt'
             radi_path = config.base_path + \
