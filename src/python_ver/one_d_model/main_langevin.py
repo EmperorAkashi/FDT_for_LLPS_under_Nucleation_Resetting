@@ -4,7 +4,7 @@ import python_ver.one_d_model.config as cf
 import python_ver.one_d_model.langevin1d as L
 
 @hydra.main(config_path=None, config_name='langevin_1d', version_base='1.1' ) 
-def main(config: cf.Langevin1DRun):
+def main(config: cf.Langevin1DRunConfig):
     omg_list = config.omg_list
     amp_list = config.amp_list
     # we keep the net for loop call of the main langevin function
