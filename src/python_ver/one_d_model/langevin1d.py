@@ -1,5 +1,5 @@
 import numpy as np
-import config as cf
+import python_ver.one_d_model.config as cf
 from typing import List
 import python_ver.one_d_model.eom_util as E
 
