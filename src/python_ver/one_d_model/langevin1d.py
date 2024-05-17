@@ -1,7 +1,7 @@
 import numpy as np
 import config as cf
 from typing import List
-import eom_util as E
+import python_ver.one_d_model.eom_util as E
 
 def langevin_1d(config:cf.Langevin1DConfig) -> None:
     r = 0.0 # 1d displacement starts from origin by default
