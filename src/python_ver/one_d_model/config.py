@@ -29,6 +29,7 @@ class NucleationConfig:
     k:float = -0.17
     x_0:float = 2.61
 
+@dataclasses.dataclass
 class Langevin1DRunConfig:
     omg_list:List[float] = omegaconf.MISSING
     amp_list:List[float] = omegaconf.MISSING
