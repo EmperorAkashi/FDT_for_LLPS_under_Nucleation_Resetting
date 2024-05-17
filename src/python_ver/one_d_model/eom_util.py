@@ -1,5 +1,5 @@
 import numpy as np
-import config as cf
+import python_ver.one_d_model.config as cf
 from typing import List
 from abc import ABC, abstractmethod
 from enum import Enum
