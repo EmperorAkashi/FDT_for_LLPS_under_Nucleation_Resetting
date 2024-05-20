@@ -1,5 +1,6 @@
 import dataclasses
 from typing import List, Dict
+import omegaconf
 
 @dataclasses.dataclass
 class FittingFileConfig:
@@ -20,3 +21,27 @@ class SeqFittingConfig:
     avg_list:bool = False #whether to use averaged reponses for fitting
     sample:int = 1000
     fit_range:int = 3
+
+@dataclasses.dataclass
+class ResponseCalcConfig:
+    omg_list:List[float] = omegaconf.MISSING
+    amp_list:List[float] = omegaconf.MISSING
+    dt:float = 0.1
+    alpha:float = 0.2
+    R_thre:float = 0.1
+    tau:float = 10.0
+    c_eq:float = 0.7
+
+@dataclasses.dataclass
+class ACFCCalcConfig:
+    range_min:int = 0
+    range_max:int = 300
+    alpha:float = 0.2
+    tau:float = 10.0
+    c_eq:float = 0.7
+    R_thre:float = 0.1
+    file_order:int = 1
+
+
+
+

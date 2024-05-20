@@ -12,7 +12,7 @@ def main(config: cf.Langevin1DRunConfig):
     config_dict = omegaconf.OmegaConf.to_container(config, resolve=True)
 
     # Save the configuration to a JSON file
-    with open('hyperparameters.json', 'w') as f:
+    with open('langevin.json', 'w') as f:
         json.dump(config_dict, f, indent=4)
 
     omg_list = config.omg_list

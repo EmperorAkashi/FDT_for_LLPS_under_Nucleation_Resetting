@@ -3,6 +3,7 @@ import matplotlib.pylab as plt
 from scipy.optimize import leastsq
 
 from typing import List, Tuple
+import data_util.config as cf
 
 "Can be used to read a 1d list, such as r^2, potential energy et.al."
 def read_list(file:str) -> List[float]:
@@ -119,3 +120,41 @@ def get_fpt_hist(life_ensemble:List[float],
     pdf = n / total_count
 
     return bin_mid, pdf
+
+def fourier_comp(trj:np.ndarray, omega:float, dt:float) -> Tuple[float, float]:
+    """@brief: calculate in phase&out phase of a time series
+    here we refer to the 1D displacement of the simulated trajectory
+    """
+    in_phase = 0
+    out_phase = 0
+
+    for i in range(len(trj)):
+        in_phase += trj[i]*np.sin(omega*i*dt)*2/len(trj)
+        out_phase += trj[i]*np.cos(omega*i*dt)*2/len(trj)
+    return in_phase, out_phase
+
+def get_acf(trj_path:str, cfg:cf.ACFCCalcConfig) -> None:
+    trj_batch = read_2d(trj_path)
+    m = len(trj_batch)
+
+    output = 'acf_list' + "_" + "ap_" + str(cfg.alpha) + "_" + str(cfg.file_order) + ".txt"
+    f = open(output, 'w+')
+
+    for i in range(m):
+        trj_i = trj_batch[i]
+        acf_i = auto_corr(trj_i)
+        f.write(float_to_str(acf_i))
+    f.close()
+
+
+def auto_corr(x:List[float]) -> List[float]:
+    corr = []
+    m = np.mean(x)
+
+    for i in range(len(x) - 1):
+        prod = []
+        for j in range(len(x) - i):
+            prod.append(x[j]*x[j+1] - m**2)
+        avg = np.mean(prod)
+        corr.append(avg)
+    return corr
