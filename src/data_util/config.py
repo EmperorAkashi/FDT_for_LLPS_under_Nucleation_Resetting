@@ -37,7 +37,7 @@ class ACFCCalcConfig:
     range_min:int = 0
     range_max:int = 300
     alpha:float = 0.2
-    tau:float = 10.0
+    tau:int = 10
     c_eq:float = 0.7
     R_thre:float = 0.1
     file_order:int = 1
