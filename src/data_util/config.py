@@ -29,7 +29,7 @@ class ResponseCalcConfig:
     dt:float = 0.1
     alpha:float = 0.2
     R_thre:float = 0.1
-    tau:float = 10.0
+    tau:int = 10
     c_eq:float = 0.7
 
 @dataclasses.dataclass
