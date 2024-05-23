@@ -41,6 +41,7 @@ def trans_r(dt:float, r:float, alpha:float, c:float,
     between droplet and filaments
     gamma: friction coefficient
     c: prefactor for displacement in the effective potential energy
+        equivalent to c0/nu
     omg, A: frequency & amplitude for the extra driving force
     """
     ext_F  = -(8/3)*np.pi*alpha*c*R**3*r
