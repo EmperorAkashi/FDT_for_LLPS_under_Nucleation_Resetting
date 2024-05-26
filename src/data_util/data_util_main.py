@@ -143,6 +143,7 @@ def get_acf(trj_path:str, cfg:cf.ACFCCalcConfig) -> None:
     for i in range(m):
         trj_i = trj_batch[i]
         acf_i = auto_corr(trj_i)
+        print("check current len of acf: ", len(acf_i))
         f.write(float_to_str(acf_i))
     f.close()
 
