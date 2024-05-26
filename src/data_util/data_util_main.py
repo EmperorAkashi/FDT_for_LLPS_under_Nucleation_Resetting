@@ -155,7 +155,7 @@ def auto_corr(x:List[float]) -> List[float]:
     for i in range(len(x) - 1):
         prod = []
         for j in range(len(x) - i):
-            prod.append(x[j]*x[j+1] - m**2)
+            prod.append(x[j]*x[j+i] - m**2)
         avg = np.mean(prod)
         corr.append(avg)
     return corr
