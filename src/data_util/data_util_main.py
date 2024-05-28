@@ -134,7 +134,7 @@ def fourier_comp(trj:np.ndarray, omega:float, dt:float) -> Tuple[float, float]:
     return in_phase, out_phase
 
 def get_acf(trj_path:str, cfg:cf.ACFCCalcConfig) -> None:
-    trj_batch = read_2d(trj_path)
+    trj_batch = read_2d(trj_path)[cfg.range_min:cfg.range_max]
     m = len(trj_batch)
 
     output = 'acf_list' + "_" + "ap_" + str(cfg.alpha) + "_" + str(cfg.file_order) + ".txt"
@@ -143,7 +143,6 @@ def get_acf(trj_path:str, cfg:cf.ACFCCalcConfig) -> None:
     for i in range(m):
         trj_i = trj_batch[i]
         acf_i = auto_corr(trj_i)
-        print("check current len of acf: ", len(acf_i))
         f.write(float_to_str(acf_i))
     f.close()
 

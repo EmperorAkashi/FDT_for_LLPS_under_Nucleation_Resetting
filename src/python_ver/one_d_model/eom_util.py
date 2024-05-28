@@ -52,6 +52,7 @@ def trans_r(dt:float, r:float, alpha:float, c:float,
 
 def u_int(c:float, R:float, r:float) -> float:
     """effective potential energy of the droplet
+    corresponds to eqn.3 in the article
     """    
     u = R**2 + c*r**2
     return u

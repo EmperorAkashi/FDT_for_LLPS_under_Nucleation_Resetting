@@ -41,6 +41,8 @@ class ACFCCalcConfig:
     c_eq:float = 0.7
     R_thre:float = 0.1
     file_order:int = 1
+    num_trj:int = 1000
+    batch_size:int = 100
 
 
 
