@@ -12,8 +12,8 @@ def process_trajectories(traj_path:str, base_cfg:cf.ACFCCalcConfig) -> None:
     with ProcessPoolExecutor() as executor:
         futures = []
         for i in range(0, base_cfg.num_trj, base_cfg.batch_size):
-            cfg = replace(base_cfg, file_order=i // batch_size,
-                          range_min=i, range_max=min(i + batch_size, num_trajectories))
+            cfg = replace(base_cfg, file_order=i // base_cfg.batch_size,
+                          range_min=i, range_max=min(i + base_cfg.batch_size, base_cfg.num_trj))
 
             futures.append(executor.submit(D.get_acf, traj_path, cfg))
 
