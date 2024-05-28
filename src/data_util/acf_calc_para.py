@@ -24,13 +24,15 @@ def process_trajectories(traj_path:str, base_cfg:cf.ACFCCalcConfig) -> None:
 def main(config: cf.ACFCCalcConfig):
     # Convert OmegaConf to a Python dictionary
     config_dict = omegaconf.OmegaConf.to_container(config, resolve=True)
+    dataclass_config = cf.ACFCCalcConfig(**config_dict)  
+
 
     # Save the configuration to a JSON file
     with open('acf_calc.json', 'w') as f:
         json.dump(config_dict, f, indent=4)
 
     file = 'Disk_r-1D-ap' + str(config.alpha)+'-r0Re-Nu' + str(config.tau) + '-' + str(0.0)+'o'+str(0.0)+'_ceq'+str(config.c_eq)+'_thre'+str(config.R_thre)+'.txt'
-    process_trajectories(file, config)
+    process_trajectories(file, dataclass_config)
 
 if __name__ == '__main__':
     from hydra.core.config_store import ConfigStore
