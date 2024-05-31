@@ -7,6 +7,7 @@ import numpy as np
 import hydra
 import omegaconf
 import json
+import glob
 
 def process_trajectories(traj_path:str, base_cfg:cf.ACFCCalcConfig) -> None:
     with ProcessPoolExecutor() as executor:
@@ -19,6 +20,25 @@ def process_trajectories(traj_path:str, base_cfg:cf.ACFCCalcConfig) -> None:
 
         for future in futures:
             future.result()
+
+def concatenation_avg(config:cf.ACFCCalcConfig) -> None:
+    pattern = "acf_list_ap_" + str(config.alpha) + "_*.txt"
+
+    file_list = glob.glob(pattern)
+    combined_data = []
+
+    # Read data from each file and append to a list
+    for filename in sorted(file_list):
+        data = np.loadtxt(filename)
+        combined_data.append(data)
+
+    combined_data = np.array(combined_data)
+    np.savetxt("acf_ap"+str(config.alpha)+"_cat.txt", combined_data)
+
+    acf_avg = np.mean(combined_data, axis=0)
+    np.savetxt("acf_avg_ap"+str(config.alpha)+".txt", acf_avg)
+
+
 
 @hydra.main(config_path=None, config_name='acf', version_base='1.1' ) 
 def main(config: cf.ACFCCalcConfig):
@@ -33,6 +53,7 @@ def main(config: cf.ACFCCalcConfig):
 
     file = 'Disk_r-1D-ap' + str(config.alpha)+'-r0Re-Nu' + str(config.tau) + '-' + str(0.0)+'o'+str(0.0)+'_ceq'+str(config.c_eq)+'_thre'+str(config.R_thre)+'.txt'
     process_trajectories(file, dataclass_config)
+    concatenation_avg(dataclass_config)
 
 if __name__ == '__main__':
     from hydra.core.config_store import ConfigStore
