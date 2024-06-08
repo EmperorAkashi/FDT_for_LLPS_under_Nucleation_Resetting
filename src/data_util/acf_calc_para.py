@@ -22,6 +22,7 @@ def process_trajectories(traj_path:str, base_cfg:cf.ACFCCalcConfig) -> None:
             future.result()
 
 def concatenation_avg(config:cf.ACFCCalcConfig) -> None:
+    # specify all calculated acf via wildcard matching
     pattern = "acf_list_ap_" + str(config.alpha) + "_*.txt"
 
     file_list = glob.glob(pattern)
@@ -30,7 +31,7 @@ def concatenation_avg(config:cf.ACFCCalcConfig) -> None:
     # Read data from each file and append to a list
     for filename in sorted(file_list):
         data = np.loadtxt(filename)
-        combined_data.append(data)
+        combined_data += data # cat all acf list as a 2D list
 
     combined_data = np.array(combined_data)
     np.savetxt("acf_ap"+str(config.alpha)+"_cat.txt", combined_data)
