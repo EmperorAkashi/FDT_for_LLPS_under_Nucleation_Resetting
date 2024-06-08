@@ -34,11 +34,11 @@ def concatenation_avg(config:cf.ACFCCalcConfig) -> None:
         combined_data += data # cat all acf list as a 2D list
 
     combined_data = np.array(combined_data)
+    print("check the 3rd dim is : ", len(combined_data[0][0]))
     np.savetxt("acf_ap"+str(config.alpha)+"_cat.txt", combined_data)
 
     acf_avg = np.mean(combined_data, axis=0)
     np.savetxt("acf_avg_ap"+str(config.alpha)+".txt", acf_avg)
-
 
 
 @hydra.main(config_path=None, config_name='acf', version_base='1.1' ) 
