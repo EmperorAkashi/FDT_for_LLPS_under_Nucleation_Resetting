@@ -31,7 +31,10 @@ def concatenation_avg(config:cf.ACFCCalcConfig) -> None:
     # Read data from each file and append to a list
     for filename in sorted(file_list):
         data = np.loadtxt(filename)
-        combined_data += data # cat all acf list as a 2D list
+        if not combined_data:
+            combined_data = data # init the data with the first chunk
+        else:
+            combined_data = np.vstack((combined_data, data))
 
     combined_data = np.array(combined_data)
     print("check the 3rd dim is : ", len(combined_data[0][0]))
