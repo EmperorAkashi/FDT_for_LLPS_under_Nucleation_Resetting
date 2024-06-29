@@ -19,8 +19,7 @@ class Langevin1DConfig:
     amp:float =  omegaconf.MISSING
     disp_path:str = omegaconf.MISSING
     radi_path:str = omegaconf.MISSING
-    tau:int = 10
-    
+    tau:int = 10 
 
 @dataclasses.dataclass
 class NucleationConfig:

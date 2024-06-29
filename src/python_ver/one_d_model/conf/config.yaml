@@ -1,0 +1,8 @@
+# Configuration file for Hydra
+hydra:
+  run:
+    dir: /u/scratch/l/lin4869/llps_run/outputs/alpha${langevin.alpha}_tau${langevin.tau}_no_drive
+
+langevin:
+  alpha: 0.0  # Default values
+  tau: 0.0

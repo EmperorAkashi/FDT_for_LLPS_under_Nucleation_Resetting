@@ -6,8 +6,9 @@ import omegaconf
 import python_ver.one_d_model.config as cf
 import python_ver.one_d_model.langevin1d as L
 
-@hydra.main(config_path=None, config_name='langevin_1d', version_base='1.1' ) 
+@hydra.main(config_path="conf", config_name='langevin_1d', version_base='1.1' ) 
 def main(config: cf.Langevin1DRunConfig):
+
     # Convert OmegaConf to a Python dictionary
     config_dict = omegaconf.OmegaConf.to_container(config, resolve=True)
 
