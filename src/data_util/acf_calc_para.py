@@ -9,8 +9,13 @@ import omegaconf
 import json
 import glob
 
+import logging
+
 def process_trajectories(traj_path:str, base_cfg:cf.ACFCCalcConfig) -> None:
-    print("current acf path: ", traj_path)
+    logger = logging.getLogger(__name__)
+    logger.info("current acf traj: ", traj_path)
+    logger.debug("Debug level log")
+
     with ProcessPoolExecutor() as executor:
         futures = []
         for i in range(0, base_cfg.num_trj, base_cfg.batch_size):
