@@ -10,6 +10,7 @@ import json
 import glob
 
 def process_trajectories(traj_path:str, base_cfg:cf.ACFCCalcConfig) -> None:
+    print("current acf path: ", traj_path)
     with ProcessPoolExecutor() as executor:
         futures = []
         for i in range(0, base_cfg.num_trj, base_cfg.batch_size):
