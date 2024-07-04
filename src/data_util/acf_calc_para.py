@@ -52,6 +52,8 @@ def concatenation_avg(config:cf.ACFCCalcConfig) -> None:
 
 @hydra.main(config_path=None, config_name='acf', version_base='1.1' ) 
 def main(config: cf.ACFCCalcConfig):
+    print("Hydra run directory:", hydra.utils.get_original_cwd())
+
     # Convert OmegaConf to a Python dictionary
     config_dict = omegaconf.OmegaConf.to_container(config, resolve=True)
     dataclass_config = cf.ACFCCalcConfig(**config_dict)  
