@@ -137,7 +137,12 @@ def get_acf(trj_path:str, cfg:cf.ACFCCalcConfig) -> None:
     trj_batch = read_2d(trj_path)[cfg.range_min:cfg.range_max]
     m = len(trj_batch)
 
-    output = 'acf_list' + "_" + "ap_" + str(cfg.alpha) + "_" + str(cfg.file_order) + ".txt"
+    if cfg.file_option == "displacement":
+        output = 'acf_list' + "_" + "ap_" + str(cfg.alpha) + "_" + str(cfg.file_order) + ".txt"
+    else:
+        output = 'radi_acf_list' + "_" + "ap_" + str(cfg.alpha) + "_" + str(cfg.file_order) + ".txt"
+
+
     f = open(output, 'w+')
 
     for i in range(m):

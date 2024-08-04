@@ -43,6 +43,7 @@ class ACFCCalcConfig:
     file_order:int = 1
     num_trj:int = 1000
     batch_size:int = 100
+    file_option:str = "displacement" # the file to be processed, can also be "radius"
 
 
 

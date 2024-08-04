@@ -29,7 +29,10 @@ def process_trajectories(traj_path:str, base_cfg:cf.ACFCCalcConfig) -> None:
 
 def concatenation_avg(config:cf.ACFCCalcConfig) -> None:
     # specify all calculated acf via wildcard matching
-    pattern = "acf_list_ap_" + str(config.alpha) + "_*.txt"
+    if config.file_option == "displacement":
+        pattern = "acf_list_ap_" + str(config.alpha) + "_*.txt"
+    else:
+        pattern = "radius_acf_list_ap_" + str(config.alpha) + "_*.txt"
 
     file_list = glob.glob(pattern)
     combined_data = []
@@ -58,12 +61,18 @@ def main(config: cf.ACFCCalcConfig):
     config_dict = omegaconf.OmegaConf.to_container(config, resolve=True)
     dataclass_config = cf.ACFCCalcConfig(**config_dict)  
 
-
+    if config.file_option == "displacement":
+        json_file = 'acf_calc.json'
+    else:
+        json_file = 'acf_calc_radi.json'
     # Save the configuration to a JSON file
-    with open('acf_calc.json', 'w') as f:
+    with open(json_file, 'w') as f:
         json.dump(config_dict, f, indent=4)
 
-    file = 'Disk_r-1D-ap' + str(config.alpha)+'-r0Re-Nu' + str(config.tau) + '-' + str(0.0)+'o'+str(0.0)+'_ceq'+str(config.c_eq)+'_thre'+str(config.R_thre)+'.txt'
+    if config.file_option == "displacement":
+        file = 'Disk_r-1D-ap' + str(config.alpha)+'-r0Re-Nu' + str(config.tau) + '-' + str(0.0)+'o'+str(0.0)+'_ceq'+str(config.c_eq)+'_thre'+str(config.R_thre)+'.txt'
+    else:
+        file = 'Radius-1D-ap' + str(config.alpha)+'-r0Re-Nu' + str(config.tau) + '-' + str(0.0)+'o'+str(0.0)+'_ceq'+str(config.c_eq)+'_thre'+str(config.R_thre)+'.txt'
     process_trajectories(file, dataclass_config)
     concatenation_avg(dataclass_config)
 
