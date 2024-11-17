@@ -17,8 +17,10 @@ def read_list(file:str) -> List[float]:
     trj = [float(i) for i in str_row]
     return trj
 
-"Can be used to analyze 2d list, such as Gaussians and disk's coord"
 def read_2d(file:str) -> List[List[float]]:
+    """@brief: Can be used to analyze 2d list, such as Gaussians and disk's coord
+    quence of 1D list, i.e. repeated samples of 1D displacement & radius
+    """
     with open(file) as f:
         lines = f.readlines()
     str_row = []
@@ -122,7 +124,7 @@ def get_fpt_hist(life_ensemble:List[float],
     return bin_mid, pdf
 
 def fourier_comp(trj:np.ndarray, omega:float, dt:float) -> Tuple[float, float]:
-    """@brief: calculate in phase&out phase of a time series
+    """@brief: calculate in phase & out phase of a time series
     here we refer to the 1D displacement of the simulated trajectory
     """
     in_phase = 0

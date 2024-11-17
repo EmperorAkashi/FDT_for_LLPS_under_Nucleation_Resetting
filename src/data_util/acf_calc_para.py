@@ -52,7 +52,6 @@ def concatenation_avg(config:cf.ACFCCalcConfig) -> None:
     acf_avg = np.mean(combined_data, axis=0)
     np.savetxt("acf_avg_ap"+str(config.alpha)+".txt", acf_avg)
 
-
 @hydra.main(config_path=None, config_name='acf', version_base='1.1' ) 
 def main(config: cf.ACFCCalcConfig):
     print("Hydra run directory:", hydra.utils.get_original_cwd())
