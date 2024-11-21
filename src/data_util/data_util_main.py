@@ -135,7 +135,7 @@ def fourier_comp(trj:np.ndarray, omega:float, dt:float) -> Tuple[float, float]:
         out_phase += trj[i]*np.cos(omega*i*dt)*2/len(trj)
     return in_phase, out_phase
 
-def get_acf(trj_path:str, cfg:cf.ACFCCalcConfig) -> None:
+def get_acf(trj_path:str, cfg:cf.ACFCalcConfig) -> None:
     trj_batch = read_2d(trj_path)[cfg.range_min:cfg.range_max]
     m = len(trj_batch)
 
