@@ -6,7 +6,7 @@ import omegaconf
 import json
 
 @hydra.main(config_path=None, config_name='acf', version_base='1.1' ) 
-def main(config: cf.ACFCCalcConfig):
+def main(config: cf.ACFCalcConfig):
     # Convert OmegaConf to a Python dictionary
     config_dict = omegaconf.OmegaConf.to_container(config, resolve=True)
 
@@ -20,7 +20,7 @@ def main(config: cf.ACFCCalcConfig):
 if __name__ == '__main__':
     from hydra.core.config_store import ConfigStore
     cs = ConfigStore()
-    cs.store('acf', node=cf.ACFCCalcConfig)
+    cs.store('acf', node=cf.ACFCalcConfig)
     main()
 
     

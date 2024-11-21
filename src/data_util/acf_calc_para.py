@@ -11,7 +11,7 @@ import glob
 
 import logging
 
-def process_trajectories(traj_path:str, base_cfg:cf.ACFCCalcConfig) -> None:
+def process_trajectories(traj_path:str, base_cfg:cf.ACFCalcConfig) -> None:
     logger = logging.getLogger(__name__)
     logger.info("current acf traj: ", traj_path)
     logger.debug("Debug level log")
@@ -27,7 +27,7 @@ def process_trajectories(traj_path:str, base_cfg:cf.ACFCCalcConfig) -> None:
         for future in futures:
             future.result()
 
-def concatenation_avg(config:cf.ACFCCalcConfig) -> None:
+def concatenation_avg(config:cf.ACFCalcConfig) -> None:
     # specify all calculated acf via wildcard matching
     if config.file_option == "displacement":
         pattern = "acf_list_ap_" + str(config.alpha) + "_*.txt"
@@ -53,12 +53,12 @@ def concatenation_avg(config:cf.ACFCCalcConfig) -> None:
     np.savetxt("acf_avg_ap"+str(config.alpha)+".txt", acf_avg)
 
 @hydra.main(config_path=None, config_name='acf', version_base='1.1' ) 
-def main(config: cf.ACFCCalcConfig):
+def main(config: cf.ACFCalcConfig):
     print("Hydra run directory:", hydra.utils.get_original_cwd())
 
     # Convert OmegaConf to a Python dictionary
     config_dict = omegaconf.OmegaConf.to_container(config, resolve=True)
-    dataclass_config = cf.ACFCCalcConfig(**config_dict)  
+    dataclass_config = cf.ACFCalcConfig(**config_dict)  
 
     if config.file_option == "displacement":
         json_file = 'acf_calc.json'
@@ -72,7 +72,7 @@ def main(config: cf.ACFCCalcConfig):
         file = 'Disk_r-1D-ap' + str(config.alpha)+'-r0Re-Nu' + str(config.tau) + '-' + str(0.0)+'o'+str(0.0)+'_ceq'+str(config.c_eq)+'_thre'+str(config.R_thre)+'.txt'
     else:
         file = 'Radius-1D-ap' + str(config.alpha)+'-r0Re-Nu' + str(config.tau) + '-' + str(0.0)+'o'+str(0.0)+'_ceq'+str(config.c_eq)+'_thre'+str(config.R_thre)+'.txt'
-    process_trajectories(file, dataclass_config)
+    process_trajectories(dataclass_config.base_path + file, dataclass_config)
     concatenation_avg(dataclass_config)
 
 if __name__ == '__main__':

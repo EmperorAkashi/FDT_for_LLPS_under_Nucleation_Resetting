@@ -33,7 +33,7 @@ class ResponseCalcConfig:
     c_eq:float = 0.7
 
 @dataclasses.dataclass
-class ACFCCalcConfig:
+class ACFCalcConfig:
     range_min:int = 0
     range_max:int = 300
     alpha:float = 0.2
@@ -44,6 +44,7 @@ class ACFCCalcConfig:
     num_trj:int = 1000
     batch_size:int = 100
     file_option:str = "displacement" # the file to be processed, can also be "radius"
+    base_path:str = "/u/scratch/l/lin4869/llps_run/outputs/" # default working dir in Hoffman2
 
 
 
