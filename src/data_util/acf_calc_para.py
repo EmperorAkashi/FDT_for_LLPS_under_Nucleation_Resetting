@@ -78,7 +78,7 @@ def main(config: cf.ACFCalcConfig):
 if __name__ == '__main__':
     from hydra.core.config_store import ConfigStore
     cs = ConfigStore()
-    cs.store('acf', node=cf.ACFCCalcConfig)
+    cs.store('acf', node=cf.ACFCalcConfig)
     main()
 
 
