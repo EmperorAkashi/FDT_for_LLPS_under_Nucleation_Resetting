@@ -40,7 +40,7 @@ def concatenation_avg(config:cf.ACFCalcConfig) -> None:
     # Read data from each file and append to a list
     for filename in sorted(file_list):
         data = np.loadtxt(filename)
-        if combined_data.size == 0:
+        if len(combined_data) == 0:
             combined_data = data # init the data with the first chunk
         else:
             combined_data = np.vstack((combined_data, data))
