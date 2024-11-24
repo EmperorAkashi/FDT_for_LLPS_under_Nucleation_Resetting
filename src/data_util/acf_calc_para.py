@@ -46,7 +46,7 @@ def concatenation_avg(config:cf.ACFCalcConfig) -> None:
             combined_data = np.vstack((combined_data, data))
 
     combined_data = np.array(combined_data)
-    print("check the 3rd dim is : ", len(combined_data[0][0]))
+    print("check the 2nd dim is : ", len(combined_data[0]))
     np.savetxt("acf_ap"+str(config.alpha)+"_cat.txt", combined_data)
 
     acf_avg = np.mean(combined_data, axis=0)
