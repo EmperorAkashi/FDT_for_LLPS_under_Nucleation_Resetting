@@ -13,7 +13,7 @@ import logging
 
 def process_trajectories(traj_path:str, base_cfg:cf.ACFCalcConfig) -> None:
     logger = logging.getLogger(__name__)
-    logger.info("current acf traj: ", traj_path)
+    logger.info("current acf traj: " + traj_path)
     logger.debug("Debug level log")
 
     with ProcessPoolExecutor() as executor:
@@ -50,7 +50,7 @@ def concatenation_avg(config:cf.ACFCalcConfig) -> None:
     np.savetxt("acf_ap"+str(config.alpha)+"_cat.txt", combined_data)
 
     acf_avg = np.mean(combined_data, axis=0)
-    np.savetxt("acf_avg_ap"+str(config.alpha)+".txt", acf_avg)
+    np.savetxt("acf_avg0.0_ap"+str(config.alpha)+"_relx"+str(config.tau)+".txt", acf_avg)
 
 @hydra.main(config_path=None, config_name='acf', version_base='1.1' ) 
 def main(config: cf.ACFCalcConfig):
