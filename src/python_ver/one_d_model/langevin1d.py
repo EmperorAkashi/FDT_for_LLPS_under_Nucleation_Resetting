@@ -30,7 +30,7 @@ def langevin_1d(config:cf.Langevin1DConfig) -> None:
 
         if R_curr < config.R_thre:
             R_curr = config.R_thre
-            if config.reflect:
+            if not config.reflect:
                 r = 0
             t_relx = int(nucleation.get_distri())
 
