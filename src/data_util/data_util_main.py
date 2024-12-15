@@ -153,7 +153,6 @@ def get_acf(trj_path:str, cfg:cf.ACFCalcConfig) -> None:
         f.write(float_to_str(acf_i))
     f.close()
 
-
 def auto_corr(x:List[float]) -> List[float]:
     corr = []
     m = np.mean(x)
@@ -165,3 +164,24 @@ def auto_corr(x:List[float]) -> List[float]:
         avg = np.mean(prod)
         corr.append(avg)
     return corr
+
+def cross_corr(trj:List[float], radi:List[float]) -> List[float]:
+    """@brief calculated cross correlation fxn across displacement 
+    & radius |<r(t)(R(t+tau) - <R>)>|
+    """
+    radi_mean = np.mean(radi)
+    radi_prime = np.array(radi) - radi_mean
+
+    corr = []
+
+    for i in range(len(trj) - 1):
+        prod = []
+        for j in range(len(trj) - i):
+            curr_corr = abs(trj[i]*(radi[j+1] - radi_mean))
+            prod.append(curr_corr)
+        avg = np.mean(prod)
+        corr.append(avg)
+
+    return avg
+
+    
