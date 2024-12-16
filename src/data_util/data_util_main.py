@@ -153,6 +153,24 @@ def get_acf(trj_path:str, cfg:cf.ACFCalcConfig) -> None:
         f.write(float_to_str(acf_i))
     f.close()
 
+def get_cross_corr(trj_path:str, radi_path:str, cfg:cf.ACFCalcConfig) -> None:
+    trj_batch = read_2d(trj_path)[cfg.range_min:cfg.range_max]
+    radi_batch = read_2d(radi_path)[cfg.range_min:cfg.range_max]
+
+    n = len(trj_batch)
+
+    output = 'cross_corr' + "_" + "ap_" + str(cfg.alpha) + "_" + str(cfg.file_order) + ".txt"
+
+    f = open(output, 'w+')
+
+    for i in range(n):
+        trj_i = trj_batch[i]
+        radi_i = radi_batch[i]
+        cross_i = cross_corr(trj_i, radi_i)
+        f.write(cross_i)
+
+    f.close()
+
 def auto_corr(x:List[float]) -> List[float]:
     corr = []
     m = np.mean(x)
@@ -168,6 +186,7 @@ def auto_corr(x:List[float]) -> List[float]:
 def cross_corr(trj:List[float], radi:List[float]) -> List[float]:
     """@brief calculated cross correlation fxn across displacement 
     & radius |<r(t)(R(t+tau) - <R>)>|
+    @arg: here trj & radi are 1D time series sliced from the saved files
     """
     radi_mean = np.mean(radi)
     radi_prime = np.array(radi) - radi_mean
@@ -177,7 +196,7 @@ def cross_corr(trj:List[float], radi:List[float]) -> List[float]:
     for i in range(len(trj) - 1):
         prod = []
         for j in range(len(trj) - i):
-            curr_corr = abs(trj[i]*(radi[j+1] - radi_mean))
+            curr_corr = abs(trj[j]*(radi[j+i] - radi_mean))
             prod.append(curr_corr)
         avg = np.mean(prod)
         corr.append(avg)
