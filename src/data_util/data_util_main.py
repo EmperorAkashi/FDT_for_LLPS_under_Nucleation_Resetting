@@ -201,6 +201,6 @@ def cross_corr(trj:List[float], radi:List[float]) -> List[float]:
         avg = np.mean(prod)
         corr.append(avg)
 
-    return avg
+    return corr
 
     

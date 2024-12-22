@@ -14,7 +14,7 @@ import logging
 def process_traj_radi(traj_path:str, radi_path, base_cfg:cf.ACFCalcConfig) -> None:
     logger = logging.getLogger(__name__)
     logger.info("current displacement traj: " + traj_path)
-    logger.info("current radius traj: " + traj_path)
+    logger.info("current radius traj: " + radi_path)
     logger.debug("Debug level log")
 
     with ProcessPoolExecutor() as executor:
@@ -70,8 +70,8 @@ def main(config: cf.ACFCalcConfig):
     radi_file = 'Radius-1D-ap' + str(config.alpha)+'-r0Re-Nu' + str(config.tau) + '-' + str(0.0)+'o'+str(0.0)+'_ceq'+str(config.c_eq)+'_thre'+str(config.R_thre)+'.txt'
     
     process_traj_radi(dataclass_config.base_path + trj_file, 
-                         dataclass_config.base_path + radi_file,
-                         dataclass_config)
+                      dataclass_config.base_path + radi_file,
+                      dataclass_config)
     concate_avg_cross(dataclass_config)
 
 if __name__ == '__main__':
