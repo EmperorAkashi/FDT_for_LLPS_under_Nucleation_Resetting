@@ -167,7 +167,7 @@ def get_cross_corr(trj_path:str, radi_path:str, cfg:cf.ACFCalcConfig) -> None:
         trj_i = trj_batch[i]
         radi_i = radi_batch[i]
         cross_i = cross_corr(trj_i, radi_i)
-        f.write(cross_i)
+        f.write(float_to_str(cross_i))
 
     f.close()
 
