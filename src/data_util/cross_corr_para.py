@@ -28,7 +28,7 @@ def process_traj_radi(traj_path:str, radi_path, base_cfg:cf.ACFCalcConfig) -> No
         for future in futures:
             future.result()
 
-def concatenation_avg(config:cf.ACFCalcConfig) -> None:
+def concate_avg_cross(config:cf.ACFCalcConfig) -> None:
     # specify all calculated acf via wildcard matching
     pattern = "cross_corr_list_ap_" + str(config.alpha) + "_*.txt"
     
@@ -69,10 +69,10 @@ def main(config: cf.ACFCalcConfig):
     trj_file = 'Disk_r-1D-ap' + str(config.alpha)+'-r0Re-Nu' + str(config.tau) + '-' + str(0.0)+'o'+str(0.0)+'_ceq'+str(config.c_eq)+'_thre'+str(config.R_thre)+'.txt'
     radi_file = 'Radius-1D-ap' + str(config.alpha)+'-r0Re-Nu' + str(config.tau) + '-' + str(0.0)+'o'+str(0.0)+'_ceq'+str(config.c_eq)+'_thre'+str(config.R_thre)+'.txt'
     
-    process_trajectories(dataclass_config.base_path + trj_file, 
+    process_traj_radi(dataclass_config.base_path + trj_file, 
                          dataclass_config.base_path + radi_file,
                          dataclass_config)
-    concatenation_avg(dataclass_config)
+    concate_avg_cross(dataclass_config)
 
 if __name__ == '__main__':
     from hydra.core.config_store import ConfigStore
