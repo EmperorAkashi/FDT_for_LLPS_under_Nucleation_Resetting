@@ -30,7 +30,7 @@ def process_traj_radi(traj_path:str, radi_path, base_cfg:cf.ACFCalcConfig) -> No
 
 def concate_avg_cross(config:cf.ACFCalcConfig) -> None:
     # specify all calculated acf via wildcard matching
-    pattern = "cross_corr_list_ap_" + str(config.alpha) + "_*.txt"
+    pattern = "cross_corr_ap_" + str(config.alpha) + "_*.txt"
     
 
     file_list = glob.glob(pattern)
