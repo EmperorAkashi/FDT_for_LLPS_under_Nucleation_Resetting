@@ -135,6 +135,38 @@ def fourier_comp(trj:np.ndarray, omega:float, dt:float) -> Tuple[float, float]:
         out_phase += trj[i]*np.cos(omega*i*dt)*2/len(trj)
     return in_phase, out_phase
 
+def power_spectrum(trj_file:str, freq: float, dt:float) -> float:
+    """power spectrum with a single freq, power = Im(omega)^2 + Re(omega)^2
+    @args: trj_file: a 2D list with repeated time series 
+    """
+    all_trj = read_2d(trj_file)
+    total_in_phase = []  
+    total_out_phase = []
+
+    for trj in all_trj:  
+        in_phase, out_phase = fourier_comp(trj, freq, dt)
+        total_in_phase.append(in_phase)
+        total_out_phase.append(out_phase)
+
+    # Averaging
+    mean_in_phase = sum(total_in_phase) / len(all_trj)
+    mean_out_phase = sum(total_out_phase) / len(all_trj)
+
+    # Compute the power spectrum from the average components
+    power_spectrum = mean_in_phase**2 + mean_out_phase**2
+
+    return power_spectrum
+
+def all_power_spectrum(trj_file:str, freq_list:List[float], dt:float) -> List[float]:
+    all_powers = []
+
+    for o in freq_list:
+        curr_power = power_spectrum(trj_file, o, dt)
+        all_powers.append(curr_power)
+
+    return all_powers
+
+
 def get_acf(trj_path:str, cfg:cf.ACFCalcConfig) -> None:
     trj_batch = read_2d(trj_path)[cfg.range_min:cfg.range_max]
     m = len(trj_batch)

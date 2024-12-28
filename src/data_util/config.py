@@ -32,6 +32,18 @@ class ResponseCalcConfig:
     tau:int = 10
     c_eq:float = 0.7
 
+@datalasses.dataclass
+class PowerSpecConfig:
+    omg_list:List[float] = omegaconf.MISSING
+    base_path:str = omegaconf.MISSING
+    dt:float = 0.1
+    alpha:float = 0.2
+    R_thre:float = 0.1
+    tau:int = 10
+    c_eq:float = 0.7
+    picked_amp:float = 0.5
+    intrinsic_omg:float = 0.1
+
 @dataclasses.dataclass
 class ACFCalcConfig:
     range_min:int = 0
