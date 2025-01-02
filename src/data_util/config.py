@@ -32,7 +32,7 @@ class ResponseCalcConfig:
     tau:int = 10
     c_eq:float = 0.7
 
-@datalasses.dataclass
+@dataclasses.dataclass
 class PowerSpecConfig:
     freq_range:List[float] = omegaconf.MISSING
     base_path:str = omegaconf.MISSING
