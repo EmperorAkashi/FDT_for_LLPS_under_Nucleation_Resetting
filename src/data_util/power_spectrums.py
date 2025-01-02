@@ -18,7 +18,7 @@ def main(config: cf.PowerSpecConfig):
     trj_file = trj_path + "Disk_r-1D-ap" + str(config.alpha) + "-r0Re-Nu" + str(config.tau) + "-" + 
                 str(config.picked_amp) + "o" + str(config.intrinsic_omg) + "_ceq0.7_thre0.2.txt"
     
-    powers = D.all_powers(trj_file, config.omg_list, config.dt)
+    powers = D.all_powers(trj_file, config.freq_range, config.step, config.dt)
     np.savetxt('power_spec_omg'+str(intrinsic_omg)+'_ap' + str(config.alpha)+'_list.txt', powers)
 
     
