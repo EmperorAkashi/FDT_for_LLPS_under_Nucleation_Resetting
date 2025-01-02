@@ -14,7 +14,7 @@ def main(config: cf.PowerSpecConfig):
     with open('power_spec.json', 'w') as f:
         json.dump(config_dict, f, indent=4)
 
-    trj_path = config.base_path + "alpha" + str(config.alpha) + "_tau" + str(config.tau) + "_drive/"
+    trj_path = config.base_path + "/"
     trj_file = (
         trj_path + "Disk_r-1D-ap" + str(config.alpha) + "-r0Re-Nu" +
         str(config.tau) + "-" + str(config.picked_amp) + "o" +
