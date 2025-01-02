@@ -34,8 +34,9 @@ class ResponseCalcConfig:
 
 @datalasses.dataclass
 class PowerSpecConfig:
-    omg_list:List[float] = omegaconf.MISSING
+    freq_range:List[float] = omegaconf.MISSING
     base_path:str = omegaconf.MISSING
+    step:float = 0.5
     dt:float = 0.1
     alpha:float = 0.2
     R_thre:float = 0.1

@@ -157,10 +157,15 @@ def power_spectrum(trj_file:str, freq: float, dt:float) -> float:
 
     return power_spectrum
 
-def all_power_spectrum(trj_file:str, freq_list:List[float], dt:float) -> List[float]:
+def all_power_spectrum(trj_file:str, freq_range:List[float], step:float, dt:float) -> List[float]:
+    """@arg:
+    step: the steps to increment range
+    """
     all_powers = []
+    min_value = freq_range[0]
+    max_value = freq_range[1]
 
-    for o in freq_list:
+    for o in np.arange(min_value, max_value + step, step):
         curr_power = power_spectrum(trj_file, o, dt)
         all_powers.append(curr_power)
 
