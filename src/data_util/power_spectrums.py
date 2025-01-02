@@ -21,7 +21,7 @@ def main(config: cf.PowerSpecConfig):
         str(config.intrinsic_omg) + "_ceq0.7_thre0.2.txt"
     )
     
-    powers = D.all_powers(trj_file, config.freq_range, config.step, config.dt)
+    powers = D.all_power_spectrum(trj_file, config.freq_range, config.step, config.dt)
     np.savetxt('power_spec_omg'+str(intrinsic_omg)+'_ap' + str(config.alpha)+'_list.txt', powers)
 
     
