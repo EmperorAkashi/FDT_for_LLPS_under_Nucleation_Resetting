@@ -22,7 +22,7 @@ def main(config: cf.PowerSpecConfig):
     )
     
     powers = D.all_power_spectrum(trj_file, config.freq_range, config.step, config.dt)
-    np.savetxt('power_spec_omg'+str(config.intrinsic_omg)+'_ap' + str(config.alpha)+'_list.txt', powers)
+    np.savetxt('power_spec_omg'+str(config.intrinsic_omg)+'_ap' + str(config.alpha)+'amp_'+str(config.picked_amp)+'_list.txt', powers)
 
     
 

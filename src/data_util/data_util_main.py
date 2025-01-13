@@ -159,7 +159,7 @@ def power_spectrum(trj_file:str, freq: float, dt:float) -> float:
 
 def all_power_spectrum(trj_file:str, freq_range:List[float], step:float, dt:float) -> List[float]:
     """@arg:
-    step: the steps to increment range
+    step: the steps to increment range of frequencies
     """
     all_powers = []
     min_value = freq_range[0]
