@@ -222,11 +222,11 @@ def auto_corr(x:List[float]) -> List[float]:
 
 def cross_corr(trj:List[float], radi:List[float]) -> List[float]:
     """@brief calculated cross correlation fxn across displacement 
-    & radius <|r(t)| -<|r|>)(R(t+tau)- <R>>
+    & radius <(|r(t)| -<|r|>)(R(t+tau)- <R>)>
     @arg: here trj & radi are 1D time series sliced from the saved files
     """
     radi_mean = np.mean(radi)
-    trj_mean = np.mean(trj)
+    trj_mean = np.mean([abs(i) for i in trj])
     radi_prime = np.array(radi) - radi_mean
 
     corr = []
@@ -234,7 +234,7 @@ def cross_corr(trj:List[float], radi:List[float]) -> List[float]:
     for i in range(len(trj) - 1):
         prod = []
         for j in range(len(trj) - i):
-            curr_corr = (abs(trj[j])-trj_mean)*(abs(radi[j+i]) - radi_mean)
+            curr_corr = (abs(trj[j])-trj_mean)*(radi[j+i] - radi_mean)
             prod.append(curr_corr)
         avg = np.mean(prod)
         corr.append(avg)
