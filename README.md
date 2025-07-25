@@ -1,10 +1,11 @@
 # Liquid Liquid Phase Separation (LLPS) under Nucleation Resetting
-This repository hosts a project focused on exploring the dynamics of liquid-liquid phase separation (LLPS) in an elastic filament-confined system. 
-The project integrates concepts from nucleation theory, resetting processes in active systems, and non-equilibrium statistical mechanics. 
-Key aspects include the study of droplet behaviors under thermal fluctuations, the impact of resetting dynamics on phase separation, and the analysis of fluctuation-dissipation relations (FDR) and large deviation theory (LDT). 
-We offer both C++ and Python source codes for the productive run of Langevin dynamics, addressing our complex system. 
-The repository also features Python scripts for data analysis, including visualization of autocorrelation functions in frequency domains, and the application of MCMC Bayesian regression to understand droplet dynamics in an effective potential context. 
-The project aims to bridge theoretical concepts with computational modeling to deepen the understanding of LLPS in biological and physical systems.
+This repository contains a project exploring the dynamics of liquid–liquid phase separation (LLPS) in a confined, elastic filament system, modeled as a phenomenological homogeneous setup.
+
+The project draws on ideas from nucleation theory, resetting dynamics in active systems, and nonequilibrium statistical mechanics. Key focuses include droplet behavior under thermal fluctuations and mechanical coupling, the effects of stochastic resetting on phase separation, and the examination of fluctuation–dissipation relations (FDR) and large deviation theory (LDT).
+
+We provide Python source code for simulating Langevin dynamics in this complex system (see 'langevin_dynamics.py' for our convention and implementation). Scripts are also included for data analysis, such as visualization of frequency-domain autocorrelations and MCMC-based Bayesian regression to characterize effective droplet potentials.
+
+Overall, the project aims to connect theoretical principles with computational modeling to better understand LLPS in both biological and physical contexts.
 
 # Get started
 ### Installation of our custom package
