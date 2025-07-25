@@ -24,3 +24,11 @@ in your terminal. Then activate the environment via:
 In the environment, first, install our package:
 
 `pip install -e .`
+
+Run the model with installed library:
+`python -m python_ver.one_d_model.main_langevin`
+
+# Related publication
+> **Active liquid-liquid phase separation in a confining environment**  
+> Chen Lin, Robijn Bruinsma 
+> Phys.Rev.E [[paper]](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.111.054111) 
