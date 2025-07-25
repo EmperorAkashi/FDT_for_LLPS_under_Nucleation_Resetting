@@ -3,7 +3,7 @@ This repository contains a project exploring the dynamics of liquid–liquid pha
 
 The project draws on ideas from nucleation theory, resetting dynamics in active systems, and nonequilibrium statistical mechanics. Key focuses include droplet behavior under thermal fluctuations and mechanical coupling, the effects of stochastic resetting on phase separation, and the examination of fluctuation–dissipation relations (FDR) and large deviation theory (LDT).
 
-We provide Python source code for simulating Langevin dynamics in this complex system (see `python_ver/one_d_model/langevin_dynamics.py` for our convention and implementation). Scripts are also included for data analysis, such as visualization of frequency-domain autocorrelations and MCMC-based Bayesian regression to characterize effective droplet potentials.
+We provide Python source code for simulating Langevin dynamics in this complex system (see `python_ver/one_d_model/langevin1d.py` and `main_langevin.py` for our convention and implementation). Scripts are also included for data analysis, such as visualization of frequency-domain autocorrelations and MCMC-based Bayesian regression to characterize effective droplet potentials (see `data_util` directory).
 
 Overall, the project aims to connect theoretical principles with computational modeling to better understand LLPS in both biological and physical contexts.
 
